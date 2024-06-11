@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyTestMAUI.MainPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="CustomTextCellStyle"
+                   TargetType="TextCell">
+                <Setter Property="TextColor"
+                        Value="Red" />
+                <Setter Property="DetailColor"
+                        Value="Gray" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout Padding="20"
+                 Spacing="10">
+        <Button Text="Scan Network"
+                Clicked="OnScanButtonClicked" />
+
+        <ListView x:Name="ResultsListView">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal"
+                                     Padding="10">
+                            <Label Text="{Binding}"
+                                   Style="{StaticResource CustomTextCellStyle}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Text="Shutdown Cancel"
+                Clicked="OnShutdownCancelClicked" />
+        <Button Text="Shutdown Now"
+                Clicked="OnShutdownClicked"/>
+        <HorizontalStackLayout Spacing="10">
+            <!-- 按钮 -->
+            <Button Text="Shutdown After"
+                    Clicked="OnShutdownAfterClicked" />
+
+            <!-- 显示 Stepper 值的标签 -->
+            <Label x:Name="StepperValueLabel"
+                   FontSize="20"
+                   VerticalOptions="Center"
+                   Text="0"/>
+            
+            <Label 
+                   FontSize="20"
+                   VerticalOptions="Center"
+                   Text="Minutes"/>
+
+            <!-- 数字选择控件 -->
+            <Stepper x:Name="NumberStepper"
+                     Minimum="0"
+                     Maximum="10"
+                     Increment="1"
+                     ValueChanged="OnStepperValueChanged" />
+
+            
+        </HorizontalStackLayout>
+        
+    </StackLayout>
+
+</ContentPage>
