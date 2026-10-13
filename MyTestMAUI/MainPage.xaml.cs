@@ -133,6 +133,10 @@ namespace MyTestMAUI
                     {
                         try
                         {
+                            if (ip == "192.168.31.194")
+                            {
+
+                            }
                             PingReply reply = await ping.SendPingAsync(ip, 100);
                             if (reply.Status == IPStatus.Success)
                             {
