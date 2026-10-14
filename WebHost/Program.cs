@@ -16,10 +16,10 @@ namespace WebHost
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            // ÅäÖÃ Kestrel °ó¶¨¶à¸ö IP ºÍ¶Ë¿Ú
+            // ï¿½ï¿½ï¿½ï¿½ Kestrel ï¿½ó¶¨¶ï¿½ï¿½ IP ï¿½Í¶Ë¿ï¿½
             builder.WebHost.ConfigureKestrel(options =>
             {
-                // Èç¹ûÄãÏ£Íû¼àÌýËùÓÐÍø¿¨µÄÄ³¸ö¶Ë¿Ú£¬Ò²¿ÉÒÔÊ¹ÓÃÈçÏÂ´úÂë£º
+                // ï¿½ï¿½ï¿½ï¿½ï¿½Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½Ë¿Ú£ï¿½Ò²ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½ï¿½ë£º
                 options.ListenAnyIP(5555);
             });
 
@@ -48,6 +48,9 @@ namespace WebHost
             }
 
             app.UseAuthorization();
+
+            // API Key é‰´æƒä¸­é—´ä»¶ï¼ˆæ ¡éªŒ /api/ ä¸‹çš„ X-Api-Keyï¼‰
+            app.UseMiddleware<WebHost.Middleware.ApiKeyMiddleware>();
 
             app.MapControllers();
 
