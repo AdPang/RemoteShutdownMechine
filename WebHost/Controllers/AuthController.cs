@@ -8,8 +8,9 @@ using WebHost.Services;
 namespace WebHost.Controllers
 {
     /// <summary>
-    /// 账号登录与注册。Login / Register 匿名可访问；
+    /// 账号登录。Login 匿名可访问；
     /// 关机、重启等控制接口需携带本接口签发的 Bearer 令牌。
+    /// （账号只通过本机 MySQL 中预置/手动维护，不开放注册接口。）
     /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]
@@ -52,44 +53,6 @@ namespace WebHost.Controllers
             };
 
             return Ok(new ApiResponse<LoginResult>(true, result) { Message = "登录成功" });
-        }
-
-        /// <summary>
-        /// 注册新账号（默认对局域网开放，生产环境可改为仅管理员调用）。
-        /// </summary>
-        [HttpPost]
-        [AllowAnonymous]
-        public IActionResult Register([FromBody] RegisterRequest req)
-        {
-            if (req == null || string.IsNullOrWhiteSpace(req.Username) || string.IsNullOrWhiteSpace(req.Password))
-            {
-                return Ok(new ApiResponse<object>(false, "请输入用户名和密码"));
-            }
-
-            if (req.Username.Length < 3)
-            {
-                return Ok(new ApiResponse<object>(false, "用户名至少 3 位"));
-            }
-
-            if (req.Password.Length < 6)
-            {
-                return Ok(new ApiResponse<object>(false, "密码至少 6 位"));
-            }
-
-            if (_db.Users.Any(u => u.Username == req.Username))
-            {
-                return Ok(new ApiResponse<object>(false, "该用户名已存在"));
-            }
-
-            _db.Users.Add(new User
-            {
-                Username = req.Username,
-                PasswordHash = PasswordHasher.Hash(req.Password),
-                CreatedAt = DateTime.UtcNow
-            });
-            _db.SaveChanges();
-
-            return Ok(new ApiResponse<object>(true, null) { Message = "注册成功，请登录" });
         }
     }
 }

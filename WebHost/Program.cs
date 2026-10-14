@@ -96,7 +96,7 @@ namespace WebHost
                         CreatedAt = DateTime.UtcNow
                     });
                     db.SaveChanges();
-                    // 生产环境请尽快修改默认管理员密码（可注册新账号后在数据库中改密）。
+                    // 生产环境请尽快修改默认管理员密码（直接在 lanshutdown.users 表中改密）。
                 }
             }
 
