@@ -1,4 +1,5 @@
 ﻿using AdPang.FileManager.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Dtos;
 using WebHost.Helper;
@@ -11,6 +12,7 @@ namespace WebHost.Controllers
     /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class RestartWindowsController : ControllerBase
     {
         public RestartWindowsController()

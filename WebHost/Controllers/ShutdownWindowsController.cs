@@ -1,4 +1,5 @@
 ﻿using AdPang.FileManager.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Dtos;
 using WebHost.Helper;
@@ -7,6 +8,7 @@ namespace WebHost.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class ShutdownWindowsController : ControllerBase
     {
         public ShutdownWindowsController()
